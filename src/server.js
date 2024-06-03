@@ -11,7 +11,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const server = express();
-const port = 9090;
+const PORT = 9090;
 
 let db, orbitdb, ipfs;
 
@@ -46,8 +46,8 @@ const initialize = async () => {
 
 // Ensure the services are initialized before handling requests
 initialize().then(() => {
-    server.listen(port, () => {
-        console.log(`Server running at http://localhost:${port}`);
+    server.listen(PORT, () => {
+        console.log(`Server running at http://localhost:${PORT}`);
     });
 }).catch(error => {
     console.error('Failed to initialize services:', error);
