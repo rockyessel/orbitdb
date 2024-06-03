@@ -100,3 +100,7 @@ server.get('/api/documents/:cid', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch document' });
   }
 });
+
+
+
+export default server
