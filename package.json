@@ -1,0 +1,25 @@
+{
+  "name": "orbitdb-tutorial",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .ts",
+    "lint-fix": "eslint . --ext .ts --fix",
+    "dev": "nodemon ./src/server.js",
+    "vercel-build": "echo Done running vercel-build."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@chainsafe/libp2p-gossipsub": "^13.0.0",
+    "@constl/orbit-db-types": "^2.0.0",
+    "@orbitdb/core": "^2.2.0",
+    "blockstore-level": "^1.1.8",
+    "express": "^4.19.2",
+    "helia": "^4.2.3"
+  }
+}
