@@ -11,7 +11,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const server = express();
-const port = 3000;
+const port = 9090;
 
 let db, orbitdb, ipfs;
 
@@ -91,15 +91,16 @@ server.get('/api/documents/:cid', async (req, res) => {
     }
 });
 
-export default server;
 // Gracefully handle shutdown
-// const shutdown = async () => {
-//     if (db) await db.close();
-//     if (orbitdb) await orbitdb.stop();
-//     if (ipfs) await ipfs.stop();
-//     process.exit(0);
-// };
+const shutdown = async () => {
+    if (db) await db.close();
+    if (orbitdb) await orbitdb.stop();
+    if (ipfs) await ipfs.stop();
+    process.exit(0);
+};
 
 // process.on('SIGINT', shutdown);
 // process.on('SIGTERM', shutdown);
 
+
+export default server;
