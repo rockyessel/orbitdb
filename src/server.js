@@ -91,6 +91,7 @@ server.get('/api/documents/:cid', async (req, res) => {
     }
 });
 
+export default server;
 // Gracefully handle shutdown
 const shutdown = async () => {
     if (db) await db.close();
@@ -102,5 +103,3 @@ const shutdown = async () => {
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 
-
-export default server;
