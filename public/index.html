@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="..." />
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./styles/globals.css">
+    <title>File To URL</title>
+</head>
+<body class='wrapper'>
+    <p class="underline">Hello World</p>
+    <div class='box'>
+        <!-- Single File Upload Form -->
+        <form id="singleFileUploadForm" enctype="multipart/form-data">
+            <label class='text-xl' for="singleFile">Choose file:</label>
+            <input type="file" name="singleFile" id="singleFile" required />
+            <button type="button" onclick="uploadSingleFile()">Upload Single File</button>
+            <span class="loading" id="singleFileLoading">Uploading...</span>
+        </form>
+
+        <!-- Multiple File Upload Form -->
+        <form id="multipleFileUploadForm" enctype="multipart/form-data">
+            <label for="multipleFiles">Choose files:</label>
+            <input type="file" name="multipleFiles" id="multipleFiles" multiple required />
+            <button type="button" onclick="uploadMultipleFiles()">Upload Multiple Files</button>
+            <span class="loading" id="multipleFilesLoading">Uploading...</span>
+        </form>
+
+        <!-- Text to Speech Form -->
+        <form id="ttsForm">
+            <label for="textToSpeech">Text to Speech:</label>
+            <input type="text" name="textToSpeech" id="textToSpeech" required />
+            <button type="button" onclick="convertToSpeech()">Convert to Speech</button>
+            <span class="loading" id="ttsLoading">Converting...</span>
+        </form>
+
+        <div id="result"></div>
+
+    </div>
+
+</body>
+</html>

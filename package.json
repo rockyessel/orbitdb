@@ -19,7 +19,9 @@
     "@constl/orbit-db-types": "^2.0.0",
     "@orbitdb/core": "^2.2.0",
     "blockstore-level": "^1.1.8",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
-    "helia": "^4.2.3"
+    "helia": "^4.2.3",
+    "morgan": "^1.10.0"
   }
 }

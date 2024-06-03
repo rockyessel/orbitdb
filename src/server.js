@@ -5,16 +5,32 @@ import { createHelia } from 'helia';
 import { createOrbitDB } from '@orbitdb/core';
 import { LevelBlockstore } from 'blockstore-level';
 import { Libp2pOptions } from './config/libp2p.js';
+import cors from 'cors';
+import morgan from 'morgan';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const server = express();
 const port = 3000;
 
 let db, orbitdb, ipfs;
 
-console.log('db: ', db)
+
+
+// Resolve __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+server.use(morgan('dev'));
+server.use(cors());
 
 // Middleware to parse JSON bodies
 server.use(express.json());
+server.use(express.urlencoded({ extended: false }));
+server.use(express.static(path.join(__dirname, '../public')));
+
+console.log('Dir: ', path.join(__dirname, '../public'));
+
 
 // Initialize IPFS, Helia, and OrbitDB once and keep them running
 const initialize = async () => {
