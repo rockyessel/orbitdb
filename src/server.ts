@@ -8,8 +8,6 @@ import { createHelia } from 'helia';
 import { createOrbitDB } from '@orbitdb/core';
 import { LevelBlockstore } from 'blockstore-level';
 import { Libp2pOptions } from './config/libp2p.js';
-
-
 import { fileURLToPath } from 'url';
 
 // Resolve __dirname for ES modules
