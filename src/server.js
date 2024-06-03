@@ -1,4 +1,4 @@
-// server.js
+// src/server.js
 import express from 'express';
 import { createLibp2p } from 'libp2p';
 import { createHelia } from 'helia';
@@ -10,16 +10,17 @@ import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const server = express();
-const PORT = 9090;
-
-let db, orbitdb, ipfs;
-
-
-
 // Resolve __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const server = express();
+const port = 3000;
+
+// Set custom storage path for IPFS and OrbitDB
+const storagePath = path.join(__dirname, '../public');
+
+let db, orbitdb, ipfs;
 
 server.use(morgan('dev'));
 server.use(cors());
@@ -27,18 +28,17 @@ server.use(cors());
 // Middleware to parse JSON bodies
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
-server.use(express.static(path.join(__dirname, '../public')));
+server.use(express.static(storagePath));
 
-console.log('Dir: ', path.join(__dirname, '../public'));
-
+console.log('Dir: ', storagePath);
 
 // Initialize IPFS, Helia, and OrbitDB once and keep them running
 const initialize = async () => {
-    const blockstore = new LevelBlockstore('./ipfs/blocks');
+    const blockstore = new LevelBlockstore(path.join(storagePath, 'ipfs/blocks'));
     const libp2p = await createLibp2p(Libp2pOptions);
     ipfs = await createHelia({ libp2p, blockstore });
 
-    orbitdb = await createOrbitDB({ ipfs });
+    orbitdb = await createOrbitDB({ ipfs, directory: path.join(storagePath, 'orbitdb') });
     db = await orbitdb.open('deconnect-orbitdb', { type: 'documents' });
 
     console.log('deconnect-orbitdb:-:address: ', db.address);
@@ -46,8 +46,8 @@ const initialize = async () => {
 
 // Ensure the services are initialized before handling requests
 initialize().then(() => {
-    server.listen(PORT, () => {
-        console.log(`Server running at http://localhost:${PORT}`);
+    server.listen(port, () => {
+        console.log(`Server running at http://localhost:${port}`);
     });
 }).catch(error => {
     console.error('Failed to initialize services:', error);
@@ -99,8 +99,7 @@ const shutdown = async () => {
     process.exit(0);
 };
 
-// process.on('SIGINT', shutdown);
-// process.on('SIGTERM', shutdown);
-
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
 
 export default server;
