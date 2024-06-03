@@ -31,7 +31,7 @@ server.use(express.static(path.join(__dirname, '../public')));
 // Set custom storage path for IPFS and OrbitDB
 const storagePath = path.join(__dirname, '../public/tmp');
 
-let db: any;
+let db: any
 let orbitdb: any;
 let ipfs: any;
 
