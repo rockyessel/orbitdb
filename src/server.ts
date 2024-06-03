@@ -32,8 +32,8 @@ server.use(express.static(path.join(__dirname, '../public')));
 const storagePath = path.join(__dirname, '../public/tmp');
 
 let db: any;
-let orbitdb;
-let ipfs;
+let orbitdb: any;
+let ipfs: any;
 
 // Initialize IPFS, Helia, and OrbitDB once and keep them running
 const initialize = async () => {
@@ -99,6 +99,15 @@ server.get('/api/documents/:cid', async (req, res) => {
   }
 });
 
+// Gracefully handle shutdown
+const shutdown = async () => {
+  if (db) await db.close();
+  if (orbitdb) await orbitdb.stop();
+  if (ipfs) await ipfs.stop();
+  process.exit(0);
+};
 
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
 
-export default server
+export default server;
