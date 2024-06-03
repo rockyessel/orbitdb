@@ -15,7 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const server = express();
-const port = 3000;
+const PORT = process.env.PORT || 9090;
 
 // Set custom storage path for IPFS and OrbitDB
 const storagePath = path.join(process.cwd());
@@ -49,8 +49,8 @@ const initialize = async () => {
 
 // Ensure the services are initialized before handling requests
 initialize().then(() => {
-    server.listen(port, () => {
-        console.log(`Server running at http://localhost:${port}`);
+    server.listen(PORT, () => {
+        console.log(`Server running at http://localhost:${PORT}`);
     });
 }).catch(error => {
     console.error('Failed to initialize services:', error);
