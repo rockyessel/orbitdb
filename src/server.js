@@ -18,7 +18,7 @@ const server = express();
 const port = 3000;
 
 // Set custom storage path for IPFS and OrbitDB
-const storagePath = path.join(__dirname, '../public');
+const storagePath = path.join(__dirname, '../public/tmp');
 
 let db, orbitdb, ipfs;
 
